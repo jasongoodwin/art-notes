@@ -1,0 +1,67 @@
+# Machine Learning
+- Parameters and Hyper parameters
+- Hyperparamers are the "layer above" that control the learning algorithm
+
+# Cross validation
+- Split the training data and choose one for test and then a bunch of splits for training
+- This is used to find the ideal feature selection
+- K-fold - slices - leave one out and randomly shuffle other slices.
+
+# Output of binary classification (yes/no output)
+
+# Evaluation of binary classification
+Under ROC http://gim.unmc.edu/dxtests/roc3.htm
+Jouden's jay
+
+For feature selection you can use k best OR use statistical significancte (eg a > 0.05)
+
+Logistic regression alpha it's called C as a hyperparameter.
+
+# Distance Measures
+- Continuous 
+  Manhattan distance, euclidean distance
+
+K (number of clusters) specified a priori
+Clusters are represented by centroids
+
+# k means clustering
+take n items and partition them into k groups. 
+Has a couple steps
+
+# Hierarchal Clustering
+# single linkage conglomerative clustering
+"Dendrogram"
+
+# Principal component analysis
+Can create new vectors to see things in a more 2d view
+
+# Classification
+- Different than clustering
+- Given a new observation, which categories does it belong to?
+- Eg new person, are they likely to get cancer?
+- Binary (spam/not spam), Multi-class (eg types of cancer), or multi-label (Likes comedy and horror movies)
+
+# Support vector machines
+- If they're not linearly seperatable, you can try the kernel trick to use multidimensionality on features
+- We don't know sigma
+
+# Decision Tree Learning
+- Classify observations by sorting through the cascade of decision nodes
+- eg weather? -> humidity? wind? -> rain
+
+## ID3 Algorithm for prediction of binary variable s
+
+# Random forest
+- Forest of decision trees created from _random subsets_ of the training data
+- Combine them together!
+- Fixes issues with overfitting!
+- Combine with mean/majority vote/weighted mean or weighted majority vote
+
+What are SVMs? What are RFs?
+
+Books:
+- Tom Michell - Machine Learning
+- Python Machine Learning, Packt
+
+
+

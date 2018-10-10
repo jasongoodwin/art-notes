@@ -1,0 +1,88 @@
+* Tools
+
+** Pandas
+- Python -> C
+- Tries to create R dataframe in Python
+- Gives easy visualization
+
+** MatplotLib
+- Visualization library.
+- High level api.
+
+** Scikit Learn
+- Data Transformation Tool
+- Some visualizations
+- ML algorithms
+- Abstractions to build customizations 
+
+* Notebooks
+- Notebooks are examples of operations run against nodes in the cloud
+- We used https://community.cloud.databricks.com 
+- Jupiter notebooks might be better
+- Dataframes not usually created from scratch. Like an object/matrix with a bunch of extra functionality
+
+* Numpi
+- Numpi has some extra helpers. Eg np.array augments the python array.
+
+* Filtering/Broadcasting
+- You can do something like `df.col4 < 5`
+- Which will give a true/false column
+- display_pandas(df2[(df2.col4 < 0.5) & (df2.col8 > 0)])
+- Which will throw rows away that don't match.
+- Can keep just certain columns : `display_pandas(df2[["col5", "col6"]])`
+- Or filter the table: `display_pandas(df2([3:10]))` `display_pandas(df2([3:10, 3:4]))`
+
+Damn imperative code
+df1.col1=df1.col.apply(lambda...)
+that's poor to do in the notebook because it will mutate the frame every time it's run
+so 
+```
+df1_copy = df1
+df1_copy.col1 = df1.col1.apply...
+```
+
+look for the assign function.
+
+* Updating a column to replace each value
+df2.where(df2 > 0, 0)
+
+* Dataframes has it's own plot functions on the frames
+
+* Notes on the bank bits
+- marketing.select_dtypes(['number']).head()
+- Remove invalid data (duration of calls)
+- `drop` drops a column
+- `describe` gives some stats on numbers
+- May want to move numeric values to categorical (called recently, called moderately, called long ago, never called)
+
+* Sklearn has transformer mixins
+
+- http://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/
+- Data is scaled and normalized to make the comparison of features easier.
+- z-scale , logarithmic - log(x) - can use sklearn.preprocessing
+- pipelines in sklearn.
+- Discretizer definition? 
+- Imputer definition: (deals with nulls usually)
+- Ordinal conversion - you can convert to numerical values by using "One hot encoding"
+
+* Flow for machine learning
+- Eyeball all of the data
+- Ordinal, numerical, categorical data can be treated differently
+- Pipelines are useful abstractions for describing the data transformation and machine learning algorithms.
+- "Stop words" in text processing count the common words that are unimportant.
+- Logistic regression is better with sparse matrix data
+
+* Dimensionality Reduction
+- PCA, TruncatedSVD
+- Can be used to make the runs faster, but at the loss of some accuracy.
+
+* train_split
+- Can be used to split the model, train it, and see hiw it lived.
+
+* Homework
+- Apply the data preprocessing from one of the case from one of the case studies to your own project (from the first notebook)
+- Housing Dataset: Apply the preprocessing steps of the bank marketing to the dataset
+  - If you're already familiar with the dataset, try improving your results by using random forum.
+- Kaggle
+  - see also the kernels where there are bits of examples, preprocessing steps, etc.
+

@@ -1,0 +1,196 @@
+# Pdata, etc Null Hypothesis
+## Null Hypothesis
+- what we expect to be true going into the experiment.
+Eg flipping a coin we assume the coin is fair, so should be 50/50.
+Eg 2 flips is .5x.5=.25 chance that we could get 2 in a row.
+3 flips is .5x.5x.5=.125 chance that we would get 3 in a row.
+4 flips is .0625
+Alternative hypothesis. The coin is not fair.
+5 flips in a row all heads .031
+6 flips in a row is all heads is .016
+So the alpha is 1 - level the confidence. Eg 3% is 97% confidence the coin is not fair.
+P value is the propability of getting an unusual result if the null hypothesis is true.
+P value < alpha
+p value - probability of getting an unusual result if the null hypothesis is true.
+Usually it's P < .05 in stats.
+
+# Rescaling
+https://en.wikipedia.org/wiki/Feature_scaling
+
+# Centering
+Basing them on 0
+
+# Scaling
+Moving the values between 0 and 1
+
+# Z score
+a z score of 1 is 1 standard deviation about the mean
+a z score of -1 is 1 standard deviation below the mean
+
+# Z score centering
+puts the mean at 0
+
+# Scaling and centering...
+
+``` python
+def scaler(x):
+    '''
+    Function re-scales the values to <0, 1) interval.
+    '''
+    m = np.min(x)
+    M = np.max(x)
+    return (x - m)/(M - m)
+
+def centerer(x):
+    '''
+    Function centers the values around the mean
+    and scales them to <-1, 1) interval.
+    '''
+    m = np.min(x)
+    M = np.max(x)
+    return (x - np.mean(x))/(M - m)
+
+```
+
+Eg values that go between 12 and 75 will be scaled to  <0, 1
+And then moved so that the mean is 0
+
+# Varible types
+- Statistical significance: probability that the resulting value could be obtained by chance
+- Identified by the P-value
+
+# EDA
+- First date with data
+
+- Inspection of stats
+- Normalize and transform
+- visualization
+
+# Statistical properties
+- Mean (average)
+- Median (middle)
+- Standard deviation (how close to the mean)
+- Quartiles/percentages
+
+# Statistic ops
+- categorical/binary/ordinal variable
+  - frequency table (is it balanced? significantly imbalanced?)
+  - are my data still representative?
+- mode (most frequent value)
+  - is it realistic?
+
+# data imputation
+
+# stats
+
+`collection.describe(include = 'all')`
+will show the statistics
+
+# General pipeline
+- effect size -> pvalue
+- look for something that is standardized, and the associated pvalue
+- 
+
+# Monotonic 
+- Either never increases or never decreses
+- Eta squared is a correlation variable degree of correlation
+ANOVA is what?
+
+Measure of correlation
+- Cramer's V
+- eta-squared
+- Correlations
+- Effect size must be accompanied by p-value (statistical significance)
+
+# Regression model f
+- y: dependent variable
+- x: independent variable(s) or features
+- b: regression parameter(s) or coefficients
+y=f(b, x)
+- regression analysis is the grandfather
+
+## Types of regression 
+- what type of variable is y
+- Nominal and nice
+  - ordinary regression
+- binary 
+  - logistic regression
+- categorical
+  - multiclass logistic regression
+
+# general linear model
+- linear relationship between x and y
+  - y'=bx (y with prime - to determine prediction vs value)
+  - y'i = b0 + b1xi1 + b2xi2 + ...k
+minimize Zepsilon squared - objective function
+- polynomial regression
+
+categorical variable
+o - softmax function
+
+# How good is my model?
+- residual analysis
+Rankit plot
+compares residuals to normal distribution with the same mean and st deviation
+  - histogram
+  - q-q plot (aka rank plot)
+
+# Regression with ordinals
+- can use a 'Polymomial Contrass MEthod
+
+# capacity, overfit, underfit
+- training error - error obtained on the training data
+- test error - error obtained on the test data
+- What do we want?
+  - small training error
+  - small gap between traiking and testing error
+
+- underfitting - performs poorly on the training data
+- overfitting - performs very well when trained but it sucks at real data (lage generalization gap)
+- Model's capacity - oodel's ability to fir wide variety of functionsi
+high capacity models tend to overfit
+
+Too many features can be a problem!
+- increased risk of overfitting
+so how to select features?
+- associatin measure
+- metaheuristics
+- regularization techniques
+
+Features 
+- should have association with dependent variable
+- not associated between each other,
+
+metaheuristic
+- sophisticated algorithms for feature selection
+- genetic algorithms
+- greedy algorithms
+
+
+regularization techniques
+- add penalty to objective function
+- three major types
+- Lasso
+- Ridge
+- Elastic net (combined)
+
+Enemies of regression
+- Collinearity - linearly correlated
+  - take only one as a feature
+- Autocorrelation (time series)
+  Correlated with itself
+- Heteroskedasticity
+   - variance of variable varies
+  - variance depends on the variable itself
+
+How to fight against it
+- exploratory analysis prior to regressin
+- Data standardization (z score normalization)
+- validation diagnostics etc
+
+Screencap of books
+- Think Stats 2014 Allen Downey - highly recommended. free
+- screenshot has some others.
+
+# Homework.
+Do case study 2

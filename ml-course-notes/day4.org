@@ -1,0 +1,326 @@
+# Activation Function
+- Transforms transformation from output of neuron. Could be eg softmax, radial bias function,
+- Rectifier are the most common. Used to normalize output.
+  - Step function (makes 0 or 1 based on whether > or < eta)
+  - ReLu: f(x) = max{0, x}
+  - softmax
+  - radial bias function
+
+# Softmax
+- k exp(x)/sum exp(x)
+  eg x = {0.1; 1.0; 2.0} 
+    k = 3
+
+# Radial Bias
+- k dimensional input, converts to one dimensional output
+- important for rbf neural networks because hidden networks can perform rbf
+
+# Layers
+- Input layers load observations
+  - each neuron represents a feature
+- Output is the output from the nn. One node per feature
+  - Regression and binary classification would have one unit (eg price, hotdog/not hotdog)
+  - Multi-class classification - more units
+
+# Single layer perception
+  - no hidden layers
+  - can learn to recognize linearly-separable patterns
+
+# Autoencoder
+- special breed of nn
+- inputs are 'encoded' into hidden layer
+- make output the same as input again
+- can be used for compression because the features of the neural network are enough to recreate the input so simpler models can be used
+
+# Stochastic Gradient Descent
+- Choose initial vector of parameters w and learning rate (n?)
+- repeat until an approximate minimum is obtained
+- Randomly reshuffle observations in training set
+For each observation do (w:=w - n(eta)Li(w)
+
+you set number of loops called 'epoch'
+
+# Minibatch 
+- randomly divide observations into batches of size m
+
+# learning rates 
+- RMSprop - rudes speed as gradient is larger
+- adam - combines the direction of the previous gradient as well 
+  - (eg momentum like a car turning)
+- many others (adaGrad, adaDelta, etc.) Check out adaGrad!
+
+# Back Propagation (backwards propogation of errors)
+- "chain rule of derivitives"
+- Concequence is that layers can be added without exponential growth in time complexity
+
+# "Deep learning"
+- called "deep" because there are more layers. Layers are the depth of the network.
+- Height is the number of nodes in a layer.
+- width is applicable to convolutional networks eg an object applied has  other dimensions
+  - eg images can have extra dimensions
+
+------
+
+# Feed-forward networks
+- prediction is forward. no loops
+- learning 
+  - sgd
+  - backpropagation
+    - vanishing gradient problem - where things are "enough" early in the model...
+- oldest and simplest nn architecture
+
+# FF networks
+- often hybridized with other ml algorithms
+- eg FFNN can serve as a feature selector for another algorithm
+  - FFNN -> SVM
+  - FFNN -> Decision trees
+- FFNN servers as an assembler
+  - Random forest -> FFNN
+- FFNN w/ principal component analysis
+  - PCA -> FFNN
+  - FFNN -> PCA
+- hybridization with other deep neural network (DNN)
+
+# Analysis of the diabetes tribe example
+- "Sigmoid" output layer - binary
+- note the roc curve. tells us how good it is. The further from the f(x)=x line the better.
+
+# Convolutional neural networks
+- designed to process data with grid-like topology
+  - 2-d
+    - images
+    - Pixels
+  - 1-d
+    - time-series data
+    - regular sampling
+
+# Convolution
+- "Kernel" is the window that glides across
+
+# Kernel in convolution
+- 16x16 pixel image
+- kerlnel might be 4x4 view on "pieces" of the images.
+- takes the output of the kernel function and passes it onto the next layer.
+
+# EG with Sequence of stock prices
+- traditional FFNN takes all data.
+- with convolutional nn the kernel creates a more sparse view of the data
+
+# Convolution Layer
+goes through a few steps
+- convolution
+- activation
+- pooling
+  - takes values of a window and reduces it (eg max-pooling)
+
+1,0 2,3   turns into  -->  6,8
+4,6 6,8                    3,4
+
+3,1 1,0
+1,2 2,4
+
+  - pooling introduced invariance (eg impact of small varations reduced)
+
+# Recurrent Neural Network
+- Complex architecture
+- Have feedback loops (unlike ffnn)
+  - non-linear information flow
+  - information from a node in a hidden layer can be passed back
+  - either to a self-node or from output layer back to hidden layer or from hidden layer to another hidden layer
+- good for time series data. text. speech
+- back propagation through time is used (bptt)
+
+## Time folded:
+- might take last 4 samples and pass them in
+- output is based on that window
+
+- Can have feedback loop only between hidden layers and that's one type
+- It's a different type when it's between output and hidden layers
+
+## Time unfolded
+- output from whole input sequence
+- no need for feedback loops
+
+# Training
+- regular backpropagation may not be applicable
+- back propagation through time is used (bptt)
+- recurrent network with nodes that has feedback loop will "unfold" into regular neural network, process, then back propagate, then fold again to the recurrent node.
+
+- If we need a lot of data we have a problem of long dependencies
+
+# Teacher Forcing
+- feedback from preceding ground truth (eg during music example, teacher will play in key and at tempo which forces the student)
+- using output for feedback cause cause trouble because the input is feeding the data into the model
+
+# Long short term memory network (LSTMs)
+- eg predicting next word based on my vocabulary and context of sentence
+- Have memory cell instead of neurons
+  - Complex unit
+  - multiple mathematical operation
+  - Extensive set of weights
+
+## Four gates
+- Ct-1 is the state of the hidden layer
+- ht-1 crude value
+
+- tries to "forget" old information at first gate
+- low sigmoid at first gate says "forget" previous information when processing 
+
+- secong gate is "memorizing gate"
+- and third gate - tanh - is new candidate state of the cell
+
+- ouput of first and second gate and third gate are combined.
+
+- fourth gate puts old and new information back together to determine both output value and cell state.
+
+
+---
+
+# Recursive Neural Networks
+- used a lot in natural language processing
+- regular back-propagation cannot be applied
+- Back-propagation through structure (BPTS) is used 
+
+
+qs 
+- what is back propagation
+
+
+---
+
+# Regularization
+- prevent overfitting
+
+## reduction of capacity!
+one of the major goals of research in the field is to reduce capacity in deep neural networks!
+- lasso/ridge regularization
+- Early stopping
+- Dropout
+- Stochastic pooling
+
+## Early stopping
+prevents local optima from causing a "sticking". 
+get to the next epoch
+- method of selecting number of training steps
+  - hyperparameter
+  - use of cross validation
+- Principle
+  - train if testing error decreases
+  - spot training if testing error increases more than p times in a row
+    - p - _patience_
+      - hyperparameter
+
+## Dropout
+prevents overfitting
+random forest:
+- random forest is created based on entire set of data
+- uses "bagging" to create 
+- deemed to be innefficient for dnn
+
+- dropout is an approximation of "bagging" used in dnn to preven overfitting
+  - randomly takes a node in a network and removes it (eg send 0 from a node). Rinse and repeat so there are a bunch of "subnetworks"
+  - "random forest" of subnetworks.
+
+# Scholastic pooling
+- dropout not effective for CNN (pooling will still end up taking the max value likely)
+- for CNNs take a weighted probability instead of taking max
+- not applied when in testing/production
+
+----
+
+# Practicalities
+- set the goals
+- set the performance measure
+- set the optimization method (eg for finding local optimal
+- set the regularization
+- tune the hyperparameters (how tall, how deep, etc)
+- train!
+
+## Which model?
+FFNN - supervised learning. no topology input. COMBINE THIS WITH OTHER NETWORKS!
+CNN - fixed topology
+RCNN/RSNN - input is a sequence. long range dependence?
+
+
+## Optimization
+- datasize 
+  - fixed learning rates (adagrad) 
+    - less prone to overfit
+      - large ammounts of data
+  - adaptive learning methods (adam, rmsprop)
+    - converge fast
+      - smaller ammounts of data
+- data sparsity (how many 0s)
+  eg one hot encoding
+  - adaptive learning rates ( good for sparse data)
+  -fixed learning rates (good for dense data)
+- dimensionality
+  - high? feature specific learning rates
+  - low? univeral learning rates
+- Convolution
+  - universal learning rates
+pick adam usually (or rmsprop).
+
+## Regularization
+- early stopping is universally applicable
+- ffnn
+  - l1, l2 regularization
+  - early stopping
+  - dropout
+- CNN
+  - l1, l2
+  - early stopping
+  - stochastic pooling
+- RCNN/RSNN
+  - L1, L2 always useful
+  - dropout? lots of discussion
+
+## Hyperparameters
+rules of thumb (very questionable!)
+- # of hidden layers
+  - more/less than number of output/input nodes
+- Number of nodes per hidden layer
+  - mean number of input and output nodes
+- Total number of nodes in hidden layers
+  - N = n/k(nin + nout))
+  - n - number of samples in training data
+- Batch size
+  - interacts with 
+    - learning rate
+    - number of epochs
+  - larger size
+    - increased risk of overfitting
+    - sweet spot for convergence speed
+  - rule of thumb(!!!!)
+    - greater than number of nodes in single hidden layer
+    - lower than 10x total number of nodes in hidden layers
+- Learning rate
+  - more complex models should use smaller learning rates
+  - subject of cross-validation
+  - rely on default values for the given method
+- kernel size
+  - small size
+  - grow slow
+- patience 
+  - typically between 5 and 20
+- do I need more data? 
+  - use k-folds, try with different size. feed more data - does it improve?
+  - data augmentation (cut pictures of cats into 4s)
+
+
+
+# Timeseries
+- ARMA - something moving average
+- windowing in convolution neural networks (eg into hourly daily)
+- hidden markov models
+- arema
+- sarema
+
+
+# BOOKS
+- Ian Goodfellow - Deep Learning 2016 MIT press
+deepleariningbook.org
+^^^^^ THE BOOK
+- Chollet, Deep Learning with Python 2017, manning publications
+
+http://www.faqs.org/faqs/ai-faq/neural-nets/part1/preamble.html
